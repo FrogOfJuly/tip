@@ -125,7 +125,7 @@ class TypeAnalysis(program: AProgram)(implicit declData: DeclarationData) extend
         }
       case alloc: AAlloc => unify(node, tip.types.PointerType(alloc.exp))
       case ref: AVarRef => unify(node, tip.types.PointerType(ref))
-      case _: ANull => unify(node, tip.types.PointerType(???))
+      case _: ANull => unify(node, tip.types.PointerType(tip.types.FreshVarType()))
       case fun: AFunDeclaration => unify(fun, tip.types.FunctionType(fun.params.map(x => x : Var[tip.types.Type]), fun.stmts.ret.exp))
       case call: ACallFuncExpr => unify(call.targetFun, tip.types.FunctionType(call.args.map(x => x : Var[tip.types.Type]), call))
       case _: AReturnStmt =>
